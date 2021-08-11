@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-import defaultImg from './3793096.jpg'
+import defaultImg from "./3793096.jpg";
 
-const MovieContainer = styled.div `
+const MovieContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -12,19 +12,19 @@ const MovieContainer = styled.div `
   cursor: pointer;
 `;
 
-const CoverImg = styled.img `
-    height: 362px;
-    object-fit: cover;
+const CoverImg = styled.img`
+  height: 362px;
+  object-fit: cover;
 `;
 
-const MovieName = styled.span `
-    font-size: 18px;
-    font-weight: 600;
-    color: black;
-    margin: 15px 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+const MovieName = styled.span`
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  margin: 15px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const MovieInfo = styled.span`
@@ -37,17 +37,16 @@ const MovieInfo = styled.span`
   text-overflow: ellipsis;
 `;
 
-
 const Movie = (props) => {
-    const {id, title,poster_path, popularity} = props.movie;
-    let Image = `http://image.tmdb.org/t/p/w185${poster_path}`
-    return (
-        <MovieContainer onClick={() => props.onMovieSelect(id)}>
-            <CoverImg  src={poster_path === null ? defaultImg : Image} />
-            <MovieName>{title}</MovieName>
-            <MovieInfo>{popularity}%</MovieInfo>
-        </MovieContainer>
-    );
-}
+  const { id, title, poster_path, popularity } = props.movie;
+  let Image = `http://image.tmdb.org/t/p/w185${poster_path}`;
+  return (
+    <MovieContainer onClick={() => props.onMovieSelect(id)}>
+      <CoverImg src={poster_path === null ? defaultImg : Image} />
+      <MovieName>{title}</MovieName>
+      <MovieInfo>{popularity}%</MovieInfo>
+    </MovieContainer>
+  );
+};
 
-export default Movie
+export default Movie;

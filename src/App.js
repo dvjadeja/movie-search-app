@@ -9,7 +9,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Header = styled.div `
+const Header = styled.div`
   background-color: black;
   color: white;
   display: flex;
@@ -22,13 +22,13 @@ const Header = styled.div `
   box-shadow: 0 3px 6px 0 #555;
 `;
 
-const AppName = styled.div `
+const AppName = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
-const InputBox = styled.div `
+const InputBox = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px 10px;
@@ -56,42 +56,58 @@ const MovieListContainer = styled.div`
   justify-content: space-evenly; ;
 `;
 
-export const API_KEY = '89981625a6a2af635d7b04894195ebe2'
+export const API_KEY = "89981625a6a2af635d7b04894195ebe2";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   const [timeoutId, setTimeoutId] = useState();
   const [movieList, setMovieList] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState();
 
   const fetchData = async (searchString) => {
-    const response = await axios.get(`http://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${API_KEY}`)
+    const response = await axios.get(
+      `http://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchString}`
+    );
     console.log(response);
-    setMovieList(response.data.results)
-  }
+    setMovieList(response.data.results);
+  };
 
   const onTextChange = (event) => {
-    clearTimeout(timeoutId)
+    clearTimeout(timeoutId);
     setSearchQuery(event.target.value);
     const timeout = setTimeout(() => fetchData(event.target.value), 1000);
     setTimeoutId(timeout);
-  }
+  };
 
   return (
     <Container>
       <Header>
-        <AppName>
-          Movie Search App
-        </AppName>
+        <AppName>Movie Search App</AppName>
         <InputBox>
-          <SearchInput placeholder="Enter Movie Name" onChange={onTextChange}/>
+          <SearchInput
+            placeholder="Enter Movie Name"
+            value={searchQuery}
+            onChange={onTextChange}
+          />
         </InputBox>
       </Header>
-      {selectedMovie && <MovieDetail selectedMovie={selectedMovie} API_KEY={API_KEY} onMovieSelect={setSelectedMovie}/>}
+      {selectedMovie && (
+        <MovieDetail
+          selectedMovie={selectedMovie}
+          API_KEY={API_KEY}
+          onMovieSelect={setSelectedMovie}
+        />
+      )}
       <MovieListContainer>
-        {
-          movieList?.length ? movieList.map((movie, index) => <Movie key={index} movie={movie} onMovieSelect={setSelectedMovie} />) : 'No Movie Found'
-        }
+        {movieList?.length
+          ? movieList.map((movie, index) => (
+              <Movie
+                key={index}
+                movie={movie}
+                onMovieSelect={setSelectedMovie}
+              />
+            ))
+          : "No Movie Found"}
       </MovieListContainer>
     </Container>
   );
