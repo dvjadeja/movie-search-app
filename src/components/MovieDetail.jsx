@@ -66,7 +66,8 @@ const MovieDetail = (props) => {
         `http://api.themoviedb.org/3/movie/${selectedMovie}?api_key=${API_KEY}`
       )
       .then((response) => setMovieInfo(response.data));
-  }, [selectedMovie]);
+    console.log(movieInfo);
+  }, [selectedMovie, movieInfo]);
   let Image = `http://image.tmdb.org/t/p/w185${movieInfo?.poster_path}`;
   return (
     <Container>

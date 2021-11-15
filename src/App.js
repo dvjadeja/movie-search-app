@@ -45,6 +45,7 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   margin-left: 15px;
+  width: 100%;
 `;
 
 const MovieListContainer = styled.div`
@@ -68,7 +69,6 @@ function App() {
     const response = await axios.get(
       `http://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchString}`
     );
-    console.log(response);
     setMovieList(response.data.results);
   };
 
